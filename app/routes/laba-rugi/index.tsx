@@ -12,6 +12,7 @@ import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons'
 import DashboardContainer from '~/container/dashboard'
 import { useLoaderData } from '@remix-run/react'
 import MobileNav from '~/container/Navbar'
+import ProfitLoseContainer from '~/container/laba-rugi'
 
 export const loader = async () => {
   const data = await fetch(
@@ -92,7 +93,7 @@ export default function WithSubnavigation() {
           <Collapse in={isOpen} animateOpacity>
             <MobileNav />
           </Collapse>
-          <DashboardContainer />
+          <ProfitLoseContainer data={data} />
         </Box>
       </Box>
     </Box>

@@ -6,7 +6,7 @@ export const NAV_ITEMS: Array<NavItem> = [
     href: '/',
   },
   {
-    label: 'Custom Page',
-    href: '#',
+    label: 'Laporan Laba Rugi',
+    href: '/laba-rugi',
   },
 ]
