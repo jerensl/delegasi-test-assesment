@@ -17,11 +17,8 @@ import {
   TriangleDownIcon,
   TriangleUpIcon,
 } from '@chakra-ui/icons'
-import {
-  ExpandedState,
-  getExpandedRowModel,
-  SortingState,
-} from '@tanstack/react-table'
+import type { ExpandedState, SortingState } from '@tanstack/react-table'
+import { getExpandedRowModel } from '@tanstack/react-table'
 import {
   useReactTable,
   flexRender,
