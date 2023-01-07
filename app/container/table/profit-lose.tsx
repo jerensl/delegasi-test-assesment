@@ -7,10 +7,21 @@ import {
   Td,
   TableContainer,
   chakra,
+  Box,
 } from '@chakra-ui/react'
 import type { IProfitLose, IProfitAndLoseTableHead } from '~/types/profit-lose'
-import { TriangleDownIcon, TriangleUpIcon } from '@chakra-ui/icons'
-import type { SortingState } from '@tanstack/react-table'
+import {
+  ChevronDownIcon,
+  ChevronRightIcon,
+  MinusIcon,
+  TriangleDownIcon,
+  TriangleUpIcon,
+} from '@chakra-ui/icons'
+import {
+  ExpandedState,
+  getExpandedRowModel,
+  SortingState,
+} from '@tanstack/react-table'
 import {
   useReactTable,
   flexRender,
@@ -28,8 +39,31 @@ const columnHelper = createColumnHelper<IProfitAndLoseTableHead>()
 
 const columns = [
   columnHelper.accessor('label', {
-    cell: (info) => info.getValue(),
+    cell: ({ row, getValue }) => (
+      <Box paddingLeft={`${row.depth * 8}`}>
+        {row.getCanExpand() ? (
+          <button
+            {...{
+              onClick: row.getToggleExpandedHandler(),
+              style: { cursor: 'pointer' },
+            }}
+          >
+            {row.getIsExpanded() ? (
+              <ChevronDownIcon boxSize={4} marginRight="2" />
+            ) : (
+              <ChevronRightIcon boxSize={4} marginRight="2" />
+            )}
+          </button>
+        ) : (
+          <MinusIcon boxSize={2} marginRight="4" />
+        )}
+        {getValue()}
+      </Box>
+    ),
     header: 'Keuntungan & Kerugian',
+    meta: {
+      isExpand: false,
+    },
   }),
   columnHelper.accessor('month', {
     cell: (info) => info.getValue(),
@@ -49,14 +83,20 @@ const columns = [
 
 const ProfitLostTable: React.FC<ProfitLostTableProps> = ({ data }) => {
   const [sorting, setSorting] = React.useState<SortingState>([])
+  const [expanded, setExpanded] = React.useState<ExpandedState>({})
+
   const table = useReactTable({
     columns,
     data: data.details,
+    onExpandedChange: setExpanded,
     getCoreRowModel: getCoreRowModel(),
     onSortingChange: setSorting,
+    getSubRows: (row) => row.details,
+    getExpandedRowModel: getExpandedRowModel(),
     getSortedRowModel: getSortedRowModel(),
     state: {
       sorting,
+      expanded,
     },
   })
 

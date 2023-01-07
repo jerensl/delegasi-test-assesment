@@ -5,4 +5,4 @@ export interface IProfitLose {
   details: Array<IProfitLose>
 }
 
-export type IProfitAndLoseTableHead = Omit<IProfitLose, 'details'>
+export type IProfitAndLoseTableHead = IProfitLose
