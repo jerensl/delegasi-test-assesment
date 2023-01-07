@@ -2,7 +2,6 @@ import {
   Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,
@@ -30,14 +29,17 @@ const columnHelper = createColumnHelper<IProfitAndLoseTableHead>()
 const columns = [
   columnHelper.accessor('label', {
     cell: (info) => info.getValue(),
-    header: 'Profit & Lose',
+    header: 'Keuntungan & Kerugian',
   }),
   columnHelper.accessor('month', {
     cell: (info) => info.getValue(),
     header: 'Tanggal',
   }),
   columnHelper.accessor('value', {
-    cell: (info) => info.getValue(),
+    cell: (info) => {
+      const value = `Rp. ${Intl.NumberFormat('id').format(info.getValue())}`
+      return value
+    },
     header: 'Biaya',
     meta: {
       isNumeric: true,
@@ -59,7 +61,7 @@ const ProfitLostTable: React.FC<ProfitLostTableProps> = ({ data }) => {
   })
 
   return (
-    <TableContainer overflowY="auto" paddingY="20px" maxHeight="400px">
+    <TableContainer overflowY="scroll" paddingY="20px" maxHeight="400px">
       <Table variant="simple" paddingY="20px" size="sm" overflowY="hidden">
         <Thead>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -108,20 +110,6 @@ const ProfitLostTable: React.FC<ProfitLostTableProps> = ({ data }) => {
             </Tr>
           ))}
         </Tbody>
-        <Tfoot>
-          <Tr>
-            <Th>Total pengeluaran</Th>
-            <Th></Th>
-            <Th isNumeric>
-              Rp.{' '}
-              {Intl.NumberFormat('id').format(
-                data.details
-                  ?.map(({ value }) => value)
-                  .reduce((acc, curr) => acc + curr, 0)
-              )}
-            </Th>
-          </Tr>
-        </Tfoot>
       </Table>
     </TableContainer>
   )
