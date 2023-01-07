@@ -7,9 +7,6 @@ import {
   Collapse,
   Icon,
   Link,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
   useColorModeValue,
   useDisclosure,
   Image,
@@ -18,12 +15,19 @@ import {
   HamburgerIcon,
   CloseIcon,
   ChevronDownIcon,
-  ChevronRightIcon,
 } from '@chakra-ui/icons';
 import DashboardContainer from '~/container/dashboard';
+import { useLoaderData } from '@remix-run/react';
+
+export const loader = async () => {
+  const data = await fetch("https://my-json-server.typicode.com/Delegasi-Tech/data-dummy/laporan_laba_rugi")
+
+  return data
+}
 
 export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
+  const data = useLoaderData()
 
   return (
     <Box
@@ -82,7 +86,6 @@ export default function WithSubnavigation() {
                 />
               </Box>
             </Flex>
-
             <Stack
               flex={{ base: 1 }}
               justify={'flex-end'}
@@ -93,7 +96,7 @@ export default function WithSubnavigation() {
           <Collapse in={isOpen} animateOpacity>
             <MobileNav />
           </Collapse>
-          <DashboardContainer />
+          <DashboardContainer data={data} />
         </Box>
       </Box>
     </Box>
