@@ -57,7 +57,7 @@ const columns = [
         {getValue()}
       </Box>
     ),
-    header: 'Keuntungan & Kerugian',
+    header: 'Laba & Rugi',
     meta: {
       isExpand: false,
     },
@@ -98,7 +98,7 @@ const ProfitLostTable: React.FC<ProfitLostTableProps> = ({ data }) => {
   })
 
   return (
-    <TableContainer overflowY="scroll" paddingY="20px" maxHeight="400px">
+    <TableContainer overflowY="scroll" paddingY="20px" maxHeight="450px">
       <Table variant="simple" paddingY="20px" size="sm" overflowY="hidden">
         <Thead>
           {table.getHeaderGroups().map((headerGroup) => (

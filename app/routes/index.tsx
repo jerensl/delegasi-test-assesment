@@ -10,7 +10,6 @@ import {
 } from '@chakra-ui/react'
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons'
 import DashboardContainer from '~/container/dashboard'
-import { useLoaderData } from '@remix-run/react'
 import MobileNav from '~/container/Navbar'
 
 export const loader = async () => {
@@ -23,7 +22,6 @@ export const loader = async () => {
 
 export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure()
-  const data = useLoaderData()
 
   return (
     <Box
