@@ -7,7 +7,10 @@ module.exports = {
   // server. This does not understand the vercel lambda module format,
   // so we default back to the standard build output.
   // eslint-disable-next-line no-undef
-  server: process.env.NODE_ENV === 'development' ? undefined : './server.js',
+  server:
+    process.env.NETLIFY || process.env.NETLIFY_LOCAL
+      ? './server.js'
+      : undefined,
   ignoredRouteFiles: ['.*'],
   // appDirectory: "app",
   // assetsBuildDirectory: "public/build",
