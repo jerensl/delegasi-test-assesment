@@ -6,8 +6,9 @@
   "sideEffects": false,
   "scripts": {
     "build": "cross-env NODE_ENV=production remix build",
-    "dev": "cross-env NODE_ENV=development remix dev",
-    "start": "cross-env NODE_ENV=production remix-serve build"
+    "dev": "cross-env NODE_ENV=development remix watch",
+    "start": "cross-env NODE_ENV=production remix-serve build",
+    "dev:netlify": "cross-env NODE_ENV=development netlify dev"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.0.15",
