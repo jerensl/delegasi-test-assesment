@@ -1,4 +1,4 @@
-import { ChevronDownIcon, ChevronRightIcon, MinusIcon } from '@chakra-ui/icons'
+import { ChevronDownIcon, ChevronRightIcon, Icon } from '@chakra-ui/icons'
 import { Box, Flex, Heading } from '@chakra-ui/react'
 import { createColumnHelper } from '@tanstack/react-table'
 import type { IProfitAndLoseTableHead, IProfitLose } from '~/types/profit-lose'
@@ -26,11 +26,19 @@ const columns = [
             ) : (
               <ChevronRightIcon boxSize={4} marginRight="2" />
             )}
+            {getValue()}
           </button>
         ) : (
-          <MinusIcon boxSize={2} marginRight="4" />
+          <>
+            <Icon viewBox="0 0 200 200" color="green.500" marginRight="3">
+              <path
+                fill="currentColor"
+                d="M 100, 100 m -75, 0 a 75,75 0 1,0 150,0 a 75,75 0 1,0 -150,0"
+              />
+            </Icon>
+            {getValue()}
+          </>
         )}
-        {getValue()}
       </Box>
     ),
     header: 'Laba & Rugi',
