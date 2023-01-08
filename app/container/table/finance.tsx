@@ -7,16 +7,9 @@ import {
   Td,
   TableContainer,
   chakra,
-  Box,
 } from '@chakra-ui/react'
-import type { IProfitLose, IProfitAndLoseTableHead } from '~/types/profit-lose'
-import {
-  ChevronDownIcon,
-  ChevronRightIcon,
-  MinusIcon,
-  TriangleDownIcon,
-  TriangleUpIcon,
-} from '@chakra-ui/icons'
+import type { IProfitLose } from '~/types/profit-lose'
+import { TriangleDownIcon, TriangleUpIcon } from '@chakra-ui/icons'
 import type {
   ExpandedState,
   SortingState,
