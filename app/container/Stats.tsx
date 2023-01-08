@@ -16,10 +16,11 @@ interface StatsProps {
 const Stats: React.FC<StatsProps> = ({ label, amount, date }) => {
   return (
     <Stat
-      border="1px"
-      borderRadius="lg"
-      borderColor="grey"
+      border="2px"
+      borderRadius="2xl"
+      borderColor="green.400"
       padding="2"
+      marginY="6"
       textAlign="center"
     >
       <StatLabel>{label}</StatLabel>
