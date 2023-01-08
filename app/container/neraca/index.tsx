@@ -1,10 +1,58 @@
+import { ChevronDownIcon, ChevronRightIcon, MinusIcon } from '@chakra-ui/icons'
 import { Box, Flex, Heading } from '@chakra-ui/react'
-import type { IProfitLose } from '~/types/profit-lose'
-import ProfitLostTable from '../table/profit-lose'
+import { createColumnHelper } from '@tanstack/react-table'
+import type { IProfitAndLoseTableHead, IProfitLose } from '~/types/profit-lose'
+import ProfitLostTable from '../table/finance'
 
 interface NeracaContainerProps {
   data: IProfitLose
 }
+
+const columnHelper = createColumnHelper<IProfitAndLoseTableHead>()
+
+const columns = [
+  columnHelper.accessor('label', {
+    cell: ({ row, getValue }) => (
+      <Box paddingLeft={`${row.depth * 8}`}>
+        {row.getCanExpand() ? (
+          <button
+            {...{
+              onClick: row.getToggleExpandedHandler(),
+              style: { cursor: 'pointer' },
+            }}
+          >
+            {row.getIsExpanded() ? (
+              <ChevronDownIcon boxSize={4} marginRight="2" />
+            ) : (
+              <ChevronRightIcon boxSize={4} marginRight="2" />
+            )}
+          </button>
+        ) : (
+          <MinusIcon boxSize={2} marginRight="4" />
+        )}
+        {getValue()}
+      </Box>
+    ),
+    header: 'Neraca',
+    meta: {
+      isExpand: false,
+    },
+  }),
+  columnHelper.accessor('month', {
+    cell: (info) => info.getValue(),
+    header: 'Tanggal',
+  }),
+  columnHelper.accessor('value', {
+    cell: (info) => {
+      const value = `Rp. ${Intl.NumberFormat('id').format(info.getValue())}`
+      return value
+    },
+    header: 'Biaya',
+    meta: {
+      isNumeric: true,
+    },
+  }),
+]
 
 const NeracaContainer: React.FC<NeracaContainerProps> = ({ data }) => {
   return (
@@ -13,7 +61,7 @@ const NeracaContainer: React.FC<NeracaContainerProps> = ({ data }) => {
         <Heading as="h2" size="md" alignItems="stretch" textAlign="center">
           Neraca Keuangan
         </Heading>
-        <ProfitLostTable data={data} />
+        <ProfitLostTable data={data} columns={columns} />
       </Box>
     </Flex>
   )

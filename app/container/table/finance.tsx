@@ -17,73 +17,31 @@ import {
   TriangleDownIcon,
   TriangleUpIcon,
 } from '@chakra-ui/icons'
-import type { ExpandedState, SortingState } from '@tanstack/react-table'
+import type {
+  ExpandedState,
+  SortingState,
+  ColumnDef,
+} from '@tanstack/react-table'
 import { getExpandedRowModel } from '@tanstack/react-table'
 import {
   useReactTable,
   flexRender,
   getCoreRowModel,
   getSortedRowModel,
-  createColumnHelper,
 } from '@tanstack/react-table'
 import React from 'react'
 
 interface ProfitLostTableProps {
   data: IProfitLose
+  columns: Array<ColumnDef<IProfitLose, any>>
 }
 
-const columnHelper = createColumnHelper<IProfitAndLoseTableHead>()
-
-const columns = [
-  columnHelper.accessor('label', {
-    cell: ({ row, getValue }) => (
-      <Box paddingLeft={`${row.depth * 8}`}>
-        {row.getCanExpand() ? (
-          <button
-            {...{
-              onClick: row.getToggleExpandedHandler(),
-              style: { cursor: 'pointer' },
-            }}
-          >
-            {row.getIsExpanded() ? (
-              <ChevronDownIcon boxSize={4} marginRight="2" />
-            ) : (
-              <ChevronRightIcon boxSize={4} marginRight="2" />
-            )}
-          </button>
-        ) : (
-          <MinusIcon boxSize={2} marginRight="4" />
-        )}
-        {getValue()}
-      </Box>
-    ),
-    header: 'Laba & Rugi',
-    meta: {
-      isExpand: false,
-    },
-  }),
-  columnHelper.accessor('month', {
-    cell: (info) => info.getValue(),
-    header: 'Tanggal',
-  }),
-  columnHelper.accessor('value', {
-    cell: (info) => {
-      const value = `Rp. ${Intl.NumberFormat('id').format(info.getValue())}`
-      return value
-    },
-    header: 'Biaya',
-    meta: {
-      isNumeric: true,
-    },
-  }),
-]
-
-const ProfitLostTable: React.FC<ProfitLostTableProps> = ({ data }) => {
+const ProfitLostTable: React.FC<ProfitLostTableProps> = ({ data, columns }) => {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [expanded, setExpanded] = React.useState<ExpandedState>({})
 
   const table = useReactTable({
-    columns,
+    columns: columns,
     data: data.details,
     onExpandedChange: setExpanded,
     getCoreRowModel: getCoreRowModel(),
