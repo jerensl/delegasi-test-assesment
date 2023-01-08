@@ -19,6 +19,16 @@ const DashboardContainer: React.FC<DashboardContainerProps> = ({ data }) => {
           amount={data.details[0].value}
           date={data.details[0].month}
         />
+        <Stats
+          label={data.details[4].label}
+          amount={data.details[4].value}
+          date={data.details[4].month}
+        />
+        <Stats
+          label={data.details[1].label}
+          amount={data.details[1].value}
+          date={data.details[1].month}
+        />
       </Box>
     </Flex>
   )

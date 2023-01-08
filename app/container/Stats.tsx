@@ -1,11 +1,4 @@
-import {
-  Stat,
-  StatHelpText,
-  StatLabel,
-  StatNumber,
-  Button,
-} from '@chakra-ui/react'
-import { Link } from '@remix-run/react'
+import { Stat, StatHelpText, StatLabel, StatNumber } from '@chakra-ui/react'
 
 interface StatsProps {
   label: string
@@ -22,13 +15,12 @@ const Stats: React.FC<StatsProps> = ({ label, amount, date }) => {
       padding="2"
       marginY="6"
       textAlign="center"
+      backgroundColor="green.100"
+      color="green.800"
     >
       <StatLabel>{label}</StatLabel>
       <StatNumber>Rp. {`${Intl.NumberFormat('id').format(amount)}`}</StatNumber>
       <StatHelpText>{date}</StatHelpText>
-      <Button size="md" variant="outline" as={Link} to="/laba-rugi">
-        Details
-      </Button>
     </Stat>
   )
 }
