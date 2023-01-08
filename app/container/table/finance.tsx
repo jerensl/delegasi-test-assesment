@@ -7,6 +7,7 @@ import {
   Td,
   TableContainer,
   chakra,
+  Tfoot,
 } from '@chakra-ui/react'
 import type { IProfitLose } from '~/types/profit-lose'
 import { TriangleDownIcon, TriangleUpIcon } from '@chakra-ui/icons'
@@ -27,9 +28,14 @@ import React from 'react'
 interface ProfitLostTableProps {
   data: IProfitLose
   columns: Array<ColumnDef<IProfitLose, any>>
+  withTotal: boolean
 }
 
-const ProfitLostTable: React.FC<ProfitLostTableProps> = ({ data, columns }) => {
+const ProfitLostTable: React.FC<ProfitLostTableProps> = ({
+  data,
+  columns,
+  withTotal,
+}) => {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [expanded, setExpanded] = React.useState<ExpandedState>({})
 
@@ -98,6 +104,23 @@ const ProfitLostTable: React.FC<ProfitLostTableProps> = ({ data, columns }) => {
             </Tr>
           ))}
         </Tbody>
+
+        {withTotal && (
+          <Tfoot>
+            <Tr>
+              <Th>Total {data.label}</Th>
+              <Th></Th>
+              <Th isNumeric>
+                Rp.{' '}
+                {Intl.NumberFormat('id').format(
+                  data.details
+                    ?.map(({ value }) => value)
+                    .reduce((acc, curr) => acc + curr, 0)
+                )}
+              </Th>
+            </Tr>
+          </Tfoot>
+        )}
       </Table>
     </TableContainer>
   )

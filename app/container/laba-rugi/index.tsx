@@ -69,7 +69,7 @@ const ProfitLoseContainer: React.FC<ProfitLoseContainerProps> = ({ data }) => {
         <Heading as="h2" size="md" alignItems="stretch" textAlign="center">
           Laporan Laba Rugi
         </Heading>
-        <ProfitLostTable data={data} columns={columns} />
+        <ProfitLostTable data={data} columns={columns} withTotal={false} />
       </Box>
     </Flex>
   )

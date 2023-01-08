@@ -10,7 +10,7 @@ interface NeracaContainerProps {
 
 const columnHelper = createColumnHelper<IProfitAndLoseTableHead>()
 
-const columns = [
+const columns = (name: string) => [
   columnHelper.accessor('label', {
     cell: ({ row, getValue }) => (
       <Box paddingLeft={`${row.depth * 8}`}>
@@ -38,7 +38,7 @@ const columns = [
         {getValue()}
       </Box>
     ),
-    header: 'Neraca',
+    header: name,
     meta: {
       isExpand: false,
     },
@@ -62,11 +62,26 @@ const columns = [
 const NeracaContainer: React.FC<NeracaContainerProps> = ({ data }) => {
   return (
     <Flex justifyContent="center" alignItems="center" minHeight="100%">
-      <Box width={{ base: '100%', md: '380px' }} padding="2">
+      <Box
+        width={{ base: '100%', md: '380px' }}
+        padding="2"
+        display="flex"
+        flexDir="column"
+        gap="4"
+      >
         <Heading as="h2" size="md" alignItems="stretch" textAlign="center">
           Neraca Keuangan
         </Heading>
-        <ProfitLostTable data={data} columns={columns} />
+        <ProfitLostTable
+          data={data.details[0]}
+          columns={columns(data.details[0].label)}
+          withTotal={true}
+        />
+        <ProfitLostTable
+          data={data.details[1]}
+          columns={columns(data.details[1].label)}
+          withTotal={true}
+        />
       </Box>
     </Flex>
   )
