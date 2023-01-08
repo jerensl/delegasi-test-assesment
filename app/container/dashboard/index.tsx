@@ -1,9 +1,21 @@
 import { Box, Flex } from '@chakra-ui/react'
+import type { IProfitLose } from '~/types/profit-lose'
+import Stats from '../Stats'
 
-const DashboardContainer: React.FC = () => {
+interface DashboardContainerProps {
+  data: IProfitLose
+}
+
+const DashboardContainer: React.FC<DashboardContainerProps> = ({ data }) => {
   return (
     <Flex justifyContent="center" alignItems="center" minHeight="100%">
-      <Box width={{ base: '100%', md: '380px' }} padding="2"></Box>
+      <Box width={{ base: '100%', md: '380px' }} padding="2">
+        <Stats
+          label={data.details[0].label}
+          amount={data.details[0].value}
+          date={data.details[0].month}
+        />
+      </Box>
     </Flex>
   )
 }
