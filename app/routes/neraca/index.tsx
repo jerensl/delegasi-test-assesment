@@ -11,11 +11,11 @@ import {
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons'
 import { useLoaderData } from '@remix-run/react'
 import MobileNav from '~/container/Navbar'
-import ProfitLoseContainer from '~/container/laba-rugi'
+import NeracaContainer from '~/container/neraca'
 
 export const loader = async () => {
   const data = await fetch(
-    'https://my-json-server.typicode.com/Delegasi-Tech/data-dummy/laporan_laba_rugi'
+    'https://my-json-server.typicode.com/Delegasi-Tech/data-dummy/laporan_neraca'
   )
 
   return data
@@ -92,7 +92,7 @@ export default function WithSubnavigation() {
           <Collapse in={isOpen} animateOpacity>
             <MobileNav />
           </Collapse>
-          <ProfitLoseContainer data={data} />
+          <NeracaContainer data={data} />
         </Box>
       </Box>
     </Box>

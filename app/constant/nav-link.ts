@@ -6,7 +6,11 @@ export const NAV_ITEMS: Array<NavItem> = [
     href: '/',
   },
   {
-    label: 'Laporan Laba Rugi',
+    label: 'Laba Rugi',
     href: '/laba-rugi',
+  },
+  {
+    label: 'Neraca Keuangan',
+    href: '/neraca',
   },
 ]
